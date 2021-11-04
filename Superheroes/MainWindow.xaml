@@ -5,8 +5,12 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Superheroes"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
-    <Grid>
-        
-    </Grid>
+        Title="Superhéroes" Height="700" MinHeight="500" MinWidth="700" Width="1000" Icon="assets/shield.ico">
+    <DockPanel Background="LightGreen" LastChildFill="False">
+        <TextBlock Margin="10" FontSize="35" DockPanel.Dock="Left" Text="Texto Génerico" FontFamily="Impact" Foreground="White">
+            <TextBlock.Effect>
+                <DropShadowEffect Color="Black"/>
+            </TextBlock.Effect></TextBlock>
+        <Image Source="assets/avengers.png" Width="40" Height="40" DockPanel.Dock="Right" VerticalAlignment="Top" Margin="10"></Image>
+    </DockPanel>
 </Window>
