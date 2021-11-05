@@ -20,9 +20,24 @@ namespace Superheroes
     /// </summary>
     public partial class MainWindow : Window
     {
+        List<Superheroe> superheroes = Superheroe.GetSamples();
+        private int superHeroeActual = 0;
         public MainWindow()
         {
             InitializeComponent();
+            DataContext = superheroes[superHeroeActual];
+        }
+
+        private void SiguienteImage_MouseLeftButtonUp(object sender, MouseButtonEventArgs e)
+        {
+            superHeroeActual++;
+            DataContext = superheroes[superHeroeActual];
+        }
+
+        private void AnteriorImage_MouseLeftButtonUp(object sender, MouseButtonEventArgs e)
+        {
+            superHeroeActual--;
+            DataContext = superheroes[superHeroeActual];
         }
     }
 }
