@@ -16,7 +16,6 @@ namespace Superheroes
             bool visible = (bool)value;
             if (visible) return Visibility.Visible;
             else return Visibility.Collapsed;
-            
         }
 
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)

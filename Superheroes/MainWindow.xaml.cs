@@ -20,32 +20,22 @@ namespace Superheroes
     /// </summary>
     public partial class MainWindow : Window
     {
-        List<Superheroe> superheroes = Superheroe.GetSamples();
-        private int superHeroeActual = 1;
+        MainWindowVM mainWindowVM = new MainWindowVM();
+        
         public MainWindow()
         {
             InitializeComponent();
-            DataContext = superheroes[superHeroeActual-1];
+            this.DataContext = mainWindowVM;
         }
 
         private void SiguienteImage_MouseLeftButtonUp(object sender, MouseButtonEventArgs e)
         {
-            if(superHeroeActual != 3)
-            {
-                superHeroeActual++;
-                HeroeActualTextBlock.Text = superHeroeActual + "/3";
-                DataContext = superheroes[superHeroeActual-1];
-            }
+            mainWindowVM.Avanzar();
         }
 
         private void AnteriorImage_MouseLeftButtonUp(object sender, MouseButtonEventArgs e)
         {
-            if (superHeroeActual != 1)
-            {
-                superHeroeActual--;
-                HeroeActualTextBlock.Text = superHeroeActual + "/3";
-                DataContext = superheroes[superHeroeActual-1];
-            }
+            mainWindowVM.Retroceder();
         }
     }
 }
