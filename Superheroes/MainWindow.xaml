@@ -26,7 +26,7 @@
             <Setter Property="RenderTransformOrigin" Value="0.5,0.5"></Setter>
         </Style>
         <Style TargetType="{x:Type TextBlock}" x:Key="TituloTextBlock">
-            <Setter Property="FontFamily" Value="Impact"></Setter>
+            <Setter Property="FontFamily" Value="Segoe UI Black"></Setter>
             <Setter Property="FontSize" Value="35"></Setter>
             <Setter Property="Foreground" Value="White"></Setter>
             <Setter Property="Effect">
@@ -34,16 +34,76 @@
                     <DropShadowEffect Color="Black"/>
                 </Setter.Value>
             </Setter>
+            <Style.Triggers>
+                <EventTrigger RoutedEvent="MouseEnter">
+                    <BeginStoryboard>
+                        <Storyboard>
+                            <DoubleAnimation Storyboard.TargetProperty="FontSize" To="70" Duration="0:0:2"></DoubleAnimation>
+                        </Storyboard>
+                    </BeginStoryboard>
+                </EventTrigger>
+                <EventTrigger RoutedEvent="MouseLeave">
+                    <BeginStoryboard>
+                        <Storyboard>
+                            <DoubleAnimation Storyboard.TargetProperty="FontSize" To="35" Duration="0:0:2"></DoubleAnimation>
+                        </Storyboard>
+                    </BeginStoryboard>
+                </EventTrigger>
+            </Style.Triggers>
         </Style>
-        <local:BackgroundConverter x:Key="BackgroundConverter"></local:BackgroundConverter>
-        <local:VisibleConverter x:Key="VisibleConverter"></local:VisibleConverter>
+        <Style TargetType="{x:Type Image}" x:Key="HeroeImagenEstilo">
+            <Setter Property="Stretch" Value="UniformToFill"></Setter>
+            <Setter Property="Opacity" Value="0.5"></Setter>
+            <Style.Triggers>
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Setter Property="Opacity" Value="1"></Setter>
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+        <Style TargetType="{x:Type Border}" x:Key="HeroeImagenBorder">
+            <Setter Property="Margin" Value="10"></Setter>
+            <Style.Triggers>
+                <DataTrigger Binding="{Binding ElementName=HeroeImage, Path=IsMouseOver}" Value="True">
+                    <Setter Property="BorderThickness" Value="4"></Setter>
+                </DataTrigger>
+            </Style.Triggers>
+        </Style>
+        <Style TargetType="{x:Type DockPanel}" x:Key="DockPanelPrincipalEstilo">
+            <Style.Triggers>
+                <DataTrigger Binding="{Binding Path=SuperheroeActual.Heroe}" Value="True">
+                    <Setter Property="Background" Value="PaleGreen"></Setter>
+                </DataTrigger>
+                <DataTrigger Binding="{Binding Path=SuperheroeActual.Heroe}" Value="False">
+                    <Setter Property="Background" Value="IndianRed"></Setter>
+                </DataTrigger>
+            </Style.Triggers>
+        </Style>
+        <Style TargetType="{x:Type Image}" x:Key="EstiloGenericoLogo" >
+            <Setter Property="Visibility" Value="Collapsed"></Setter>
+            <Setter Property="DockPanel.Dock" Value="Right"></Setter>
+            <Setter Property="Height" Value="43"></Setter>
+        </Style>
+        <Style TargetType="{x:Type Image}" x:Key="LogotipoImageXmen" BasedOn="{StaticResource EstiloGenericoLogo}">
+            <Style.Triggers>
+                <DataTrigger Binding="{Binding Path=SuperheroeActual.Xmen}" Value="True">
+                    <Setter Property="Visibility" Value="Visible"></Setter>
+                </DataTrigger>
+            </Style.Triggers>
+        </Style>
+        <Style TargetType="{x:Type Image}" x:Key="LogotipoImageVengador" BasedOn="{StaticResource EstiloGenericoLogo}">
+            <Style.Triggers>
+                <DataTrigger Binding="{Binding Path=SuperheroeActual.Vengador}" Value="True">
+                    <Setter Property="Visibility" Value="Visible"></Setter>
+                </DataTrigger>
+            </Style.Triggers>
+        </Style>
     </Window.Resources>
-    
-    <DockPanel x:Name="PrincipalDockPanel" Background="{Binding Path=SuperheroeActual.Heroe, Converter={StaticResource BackgroundConverter}}" LastChildFill="False">
+
+    <DockPanel Style="{StaticResource DockPanelPrincipalEstilo}" x:Name="PrincipalDockPanel" LastChildFill="False">
         <DockPanel DockPanel.Dock="Top"  LastChildFill="False" Margin="10,10,10,0">
             <TextBlock DockPanel.Dock="Left" Style="{StaticResource TituloTextBlock}" Text="{Binding Path=SuperheroeActual.Nombre}"></TextBlock>
-            <Image Source="assets/xmen.png" Visibility="{Binding Path=SuperheroeActual.Xmen, Converter={StaticResource VisibleConverter}}" DockPanel.Dock="Right" Height="43"></Image>
-            <Image Source="assets/avengers.png" Visibility="{Binding Path=SuperheroeActual.Vengador, Converter={StaticResource VisibleConverter}}" DockPanel.Dock="Right" Height="43"></Image>
+            <Image Source="assets/xmen.png" Style="{StaticResource LogotipoImageXmen}"></Image>
+            <Image Source="assets/avengers.png" Style="{StaticResource LogotipoImageVengador}"></Image>
         </DockPanel>
         <StackPanel Margin="5" DockPanel.Dock="Bottom" Orientation="Horizontal" HorizontalAlignment="Center">
             <Image Style="{StaticResource FlechasImage}" x:Name="AnteriorImage" MouseLeftButtonUp="AnteriorImage_MouseLeftButtonUp"></Image>
@@ -52,6 +112,8 @@
             <TextBlock x:Name="TotalHeroesTextBlock" FontSize="20" FontWeight="Bold" Text="{Binding Path=TotalHeroes}"></TextBlock>
             <Image Style="{StaticResource AlRevesImage}" x:Name="SiguienteImage" MouseLeftButtonUp="SiguienteImage_MouseLeftButtonUp"></Image>
         </StackPanel>
-        <Image Source="{Binding Path=SuperheroeActual.Imagen}" Stretch="UniformToFill" Margin="10"></Image>
+        <Border BorderBrush="Black" Style="{StaticResource HeroeImagenBorder}">
+            <Image x:Name="HeroeImage" Source="{Binding Path=SuperheroeActual.Imagen}" Style="{StaticResource HeroeImagenEstilo}"></Image>
+        </Border>
     </DockPanel>
 </Window>

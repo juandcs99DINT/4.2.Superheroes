@@ -58,7 +58,6 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="BackgroundConverter.cs" />
     <Compile Include="MainWindowVM.cs" />
     <Compile Include="VisibleConverter.cs" />
     <Page Include="MainWindow.xaml">
