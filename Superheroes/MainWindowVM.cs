@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.Toolkit.Mvvm.ComponentModel;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
@@ -7,11 +8,14 @@ using System.Threading.Tasks;
 
 namespace Superheroes
 {
-    class MainWindowVM : INotifyPropertyChanged
+    class MainWindowVM : ObservableObject
     {
-        private List<Superheroe> lista = Superheroe.GetSamples();
+        private SuperheroesService servicio;
+        private List<Superheroe> lista;
         public MainWindowVM()
         {
+            servicio = new SuperheroesService();
+            lista = servicio.GetSamples();
             SuperheroeActual = lista[0];
             PosicionActual = 1;
             TotalHeroes = lista.Count;
@@ -23,8 +27,7 @@ namespace Superheroes
             get { return superHeroeActual; }
             set
             {
-                superHeroeActual = value;
-                NotifyPropertyChanged("SuperheroeActual");
+                SetProperty(ref superHeroeActual, value);
             }
         }
 
@@ -34,8 +37,7 @@ namespace Superheroes
             get { return posicionActual; }
             set
             {
-                posicionActual = value;
-                NotifyPropertyChanged("PosicionActual");
+                SetProperty(ref posicionActual, value);
             }
         }
 
@@ -45,8 +47,7 @@ namespace Superheroes
             get { return totalHeroes; }
             set
             {
-                totalHeroes = value;
-                NotifyPropertyChanged("TotalHeroes");
+                SetProperty(ref totalHeroes, value);
             }
         }
 
@@ -66,13 +67,6 @@ namespace Superheroes
                 SuperheroeActual = lista[PosicionActual - 1];
             }
         }
-        public event PropertyChangedEventHandler PropertyChanged;
-
-        public void NotifyPropertyChanged(string propertyName)
-        {
-            this.PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
-        }
-
 
     }
 }

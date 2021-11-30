@@ -6,6 +6,7 @@
         xmlns:local="clr-namespace:Superheroes"
         mc:Ignorable="d"
         Title="Superhéroes" Height="700" MinHeight="500" MinWidth="700" Width="1000" Icon="assets/shield.ico">
+    
     <Window.Resources>
         <Style TargetType="{x:Type Image}" x:Key="FlechasImage">
             <Setter Property="Height" Value="25"></Setter>
@@ -116,4 +117,5 @@
             <Image x:Name="HeroeImage" Source="{Binding Path=SuperheroeActual.Imagen}" Style="{StaticResource HeroeImagenEstilo}"></Image>
         </Border>
     </DockPanel>
+    
 </Window>

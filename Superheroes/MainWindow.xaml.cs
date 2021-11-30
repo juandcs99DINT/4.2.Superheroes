@@ -15,12 +15,9 @@ using System.Windows.Shapes;
 
 namespace Superheroes
 {
-    /// <summary>
-    /// Lógica de interacción para MainWindow.xaml
-    /// </summary>
     public partial class MainWindow : Window
     {
-        MainWindowVM mainWindowVM = new MainWindowVM();
+        readonly MainWindowVM mainWindowVM = new MainWindowVM();
         
         public MainWindow()
         {
